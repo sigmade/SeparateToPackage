@@ -14,18 +14,23 @@ namespace SeparateToPackage
 
             do
             {
-                var package = data.Skip(data.Count - total).Take(packageSize);
+                var package = data
+                    .Skip(data.Count - total)
+                    .Take(packageSize);
+
                 var sb = new StringBuilder("");
 
                 foreach (var i in package)
                 {
-                    sb.AppendFormat("update table set val = {0} where KEY = '{1}'  ", i.Value, i.Key);
+                    sb.Append($"update table set val = {i.Value} where KEY = '{i.Key}' ");
                 }
 
                 total -= packageSize;
-                Console.WriteLine(sb.ToString());
+
                 //execute query sb.ToString()
+                Console.WriteLine(sb.ToString());
                 Console.WriteLine(".......................");
+
             } while (total > 0);
 
             Console.ReadKey();
